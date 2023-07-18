@@ -19,6 +19,8 @@
 
 #include <cmath>
 
+#if defined(_MSC_VER) && _MSC_VER < 1500 // VC++ 8.0 and below
+
 // http://msdn.microsoft.com/en-us/library/2ts7cx93.aspx
 #define snprintf _snprintf
 
@@ -27,6 +29,8 @@
 
 // http://msdn.microsoft.com/en-us/library/85zk715d.aspx
 #define strtoull _strtoui64
+
+#endif // VC++ 8.0 and below
 
 #endif // STXXL_MSVC
 
