@@ -14,19 +14,8 @@
 
 set(CMAKE_LEGACY_CYGWIN_WIN32 0) # needed to silence warning on cygwin
 
-# require cmake 2.6.2 (but please use 2.8.x)
-cmake_minimum_required(VERSION 2.6.2 FATAL_ERROR)
-
-# the STXXL project
-project(stxxl)
-
-# for additional cmake scripts
-set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/misc/cmake)
-
-# prohibit in-source builds
-if("${PROJECT_SOURCE_DIR}" STREQUAL "${PROJECT_BINARY_DIR}")
-  message(FATAL_ERROR "In-source builds are not allowed, use a separate build directory.")
-endif()
+# require cmake 3.0.0 (avoids issues with Policy CMP0048)
+cmake_minimum_required(VERSION 3.0.0 FATAL_ERROR)
 
 # default to Debug building for single-config generators
 if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
@@ -40,6 +29,17 @@ set(STXXL_VERSION_MINOR "4")
 set(STXXL_VERSION_PATCH "99")
 set(STXXL_VERSION_STRING "${STXXL_VERSION_MAJOR}.${STXXL_VERSION_MINOR}.${STXXL_VERSION_PATCH}")
 set(STXXL_VERSION_PHASE "prerelease/${CMAKE_BUILD_TYPE}")
+
+# the STXXL project
+project(stxxl VERSION ${STXXL_VERSION_STRING})
+
+# for additional cmake scripts
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/misc/cmake)
+
+# prohibit in-source builds
+if("${PROJECT_SOURCE_DIR}" STREQUAL "${PROJECT_BINARY_DIR}")
+  message(FATAL_ERROR "In-source builds are not allowed, use a separate build directory.")
+endif()
 
 # read git directory (if it exists) and find git sha
 if(EXISTS ${PROJECT_SOURCE_DIR}/.git)
