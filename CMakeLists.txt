@@ -14,8 +14,7 @@
 
 set(CMAKE_LEGACY_CYGWIN_WIN32 0) # needed to silence warning on cygwin
 
-# require cmake 3.0.0 (avoids issues with Policy CMP0048)
-cmake_minimum_required(VERSION 3.0.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.5..3.28)
 
 # default to Debug building for single-config generators
 if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
