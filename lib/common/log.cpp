@@ -19,15 +19,15 @@
 
 STXXL_BEGIN_NAMESPACE
 
-logger::logger() : waitlog_stream_(NULL)
+logger::logger()
 {
     const char* log_filename = getenv("STXXLLOGFILE");
     if (log_filename){
-        log_stream_ = std::make_unique<std::ofstream>(log_filename)
+        log_stream_ = std::make_unique<std::ofstream>(log_filename);
     }
     const char* errlog_filename = getenv("STXXLERRLOGFILE");
     if (errlog_filename){
-        errlog_stream_ = std::make_unique<std::ofstream>(errlog_filename)
+        errlog_stream_ = std::make_unique<std::ofstream>(errlog_filename);
     }
 #ifdef STXXL_WAIT_LOG_ENABLED
     const char* waitlog_filename = getenv("STXXLWAITLOGFILE");
