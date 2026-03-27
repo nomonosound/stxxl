@@ -15,6 +15,7 @@
 #define STXXL_COMMON_LOG_HEADER
 
 #include <fstream>
+#include <memory>
 
 #include <stxxl/bits/namespace.h>
 #include <stxxl/bits/singleton.h>
@@ -25,27 +26,26 @@ class logger : public singleton<logger>
 {
     friend class singleton<logger>;
 
-    std::ofstream log_stream_;
-    std::ofstream errlog_stream_;
-    std::ofstream* waitlog_stream_;
+    std::unique_ptr<std::ofstream> log_stream_;
+    std::unique_ptr<std::ofstream> errlog_stream_;
+    std::unique_ptr<std::ofstream> waitlog_stream_;
 
     logger();
-    ~logger();
 
 public:
-    inline std::ofstream & log_stream()
+    inline std::ofstream* log_stream()
     {
-        return log_stream_;
+        return log_stream_.get();
     }
 
-    inline std::ofstream & errlog_stream()
+    inline std::ofstream* errlog_stream()
     {
-        return errlog_stream_;
+        return errlog_stream_.get();
     }
 
-    inline std::ofstream * waitlog_stream()
+    inline std::ofstream* waitlog_stream()
     {
-        return waitlog_stream_;
+        return waitlog_stream_.get();
     }
 };
 

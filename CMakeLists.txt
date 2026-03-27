@@ -495,14 +495,13 @@ endif()
 
 if(USE_OPENMP OR USE_GNU_PARALLEL)
 
-  include(FindOpenMP)
+  find_package(OpenMP)
 
-  if(NOT OPENMP_FOUND)
+  if(NOT OpenMP_FOUND)
     message(STATUS "OpenMP not found. Continuing without parallel algorithm support.")
   else()
     set(STXXL_PARALLEL 1)
     message(STATUS "OpenMP found, enabling built-in parallel algorithms.")
-
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}")
@@ -576,7 +575,7 @@ configure_file(${PROJECT_SOURCE_DIR}/include/stxxl/bits/config.h.in ${PROJECT_BI
 set(STXXL_CXX_FLAGS ${OpenMP_CXX_FLAGS})
 
 # globally adds top-level include directories
-set(STXXL_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/include/ ${PROJECT_BINARY_DIR}/include/)
+set(STXXL_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/include/ ${PROJECT_BINARY_DIR}/include/ ${OpenMP_CXX_INCLUDE_DIRS})
 include_directories(${STXXL_INCLUDE_DIRS})
 
 # for targets using stxxl library

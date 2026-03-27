@@ -65,11 +65,18 @@ void print_msg(const char* label, const std::string& msg, unsigned flags)
         std::cout << s << std::flush;
     if (flags & _STXXL_PRNT_CERR)
         std::cerr << s << std::flush;
-    logger* logger_instance = logger::get_instance();
-    if (flags & _STXXL_PRNT_LOG)
-        logger_instance->log_stream() << s << std::flush;
-    if (flags & _STXXL_PRNT_ERRLOG)
-        logger_instance->errlog_stream() << s << std::flush;
+    if (flags & _STXXL_PRNT_LOG){
+        logger* logger_instance = logger::get_instance();
+        if(auto* log_stream = logger_instance->log_stream()){
+            *log_stream << s << std::flush;
+        }
+    }
+    if (flags & _STXXL_PRNT_ERRLOG) {
+        logger* logger_instance = logger::get_instance();
+        if(auto* errlog_stream = logger_instance->errlog_stream()){
+            *errlog_stream << s << std::flush;
+        }
+    }
 }
 
 STXXL_END_NAMESPACE
