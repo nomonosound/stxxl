@@ -22,7 +22,6 @@
 
 #include <stxxl/version.h>
 #include <stxxl/bits/singleton.h>
-#include <stxxl/bits/common/log.h>
 
 STXXL_BEGIN_NAMESPACE
 
@@ -130,7 +129,6 @@ class config : public singleton<config>
     inline config()
         : is_initialized(false)
     {
-        logger::get_instance();
         STXXL_MSG(get_version_string_long());
         print_library_version_mismatch();
     }
