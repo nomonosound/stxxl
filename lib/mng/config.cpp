@@ -46,7 +46,6 @@ config::~config()
     {
         if (it->delete_on_exit)
         {
-            STXXL_ERRMSG("Removing disk file: " << it->path);
             unlink(it->path.c_str());
         }
     }
